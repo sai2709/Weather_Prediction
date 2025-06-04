@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>WeatherVerse 🌤️</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>  Weather Prediction </h1>
+
+        <form method="POST" action="/">
+            <input type="text" name="city" placeholder="Enter city name..." required autofocus>
+            <button type="submit">Search</button>
+        </form>
+
+        {% if error_message %}
+            <div class="info-box error">
+                <p>{{ error_message }}</p>
+            </div>
+        {% endif %}
+
+        {% if weather_data %}
+            <div class="info-box weather-result">
+                <h2>Weather in {{ weather_data.city }}</h2>
+                <div class="weather-details">
+                    {% if weather_data.icon_url %}
+                        <img src="{{ weather_data.icon_url }}" alt="Weather icon">
+                    {% endif %}
+                    <p class="description">{{ weather_data.description }}</p>
+                </div>
+                <p>🌡️ Temperature: {{ weather_data.temperature }} °C</p>
+                <p>💧 Feels like: {{ weather_data.feels_like }} °C</p>
+                <p>💦 Humidity: {{ weather_data.humidity }}%</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
